@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class UfRequest extends FormRequest
 {
@@ -39,5 +40,13 @@ class UfRequest extends FormRequest
             'nome.required' => 'O nome da UF é obrigatório.',
             'status.required' => 'O status da UF é obrigatório.',
         ];
+    }
+
+    public function failedValidation($validator)
+    {
+        throw new HttpResponseException(response()->json([
+            'mensagem' => $validator->messages()->first(),
+            'status' => 503
+        ], 503));
     }
 }

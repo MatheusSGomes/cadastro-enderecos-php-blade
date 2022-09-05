@@ -46,14 +46,13 @@ class BairroController extends Controller
     {
         try {
             $bairro = Bairro::create($request->all());
+            return response()->json(["mensagem" => "Bairro cadastrado com sucesso."], 200);
         } catch (Exception $e) {
             return response()->json([
                 "mensagem" => "Não foi possível cadastrar o bairro.",
                 "status" => 503
             ], 503);
         }
-
-        return response()->json(["mensagem" => "Bairro cadastrado com sucesso."], 200);
     }
 
     /**
@@ -79,7 +78,6 @@ class BairroController extends Controller
     {
         
         Bairro::where('codigo_bairro', $id)->update($request->all());
-
         return response()->json(Bairro::all(), 200);
     }
 

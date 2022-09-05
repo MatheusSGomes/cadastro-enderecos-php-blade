@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class BairroRequest extends FormRequest
 {
@@ -38,5 +39,13 @@ class BairroRequest extends FormRequest
             'nome.required' => 'O atributo \'nome\' é obrigatório.',
             'status.required' => 'O atributo \'status\' é obrigatório'
         ];
+    }
+
+    public function failedValidation($validator)
+    {
+        throw new HttpResponseException(response()->json([
+            'mensagem' => $validator->messages()->first(),
+            'status' => 503
+        ], 503));
     }
 }

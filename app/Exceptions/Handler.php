@@ -50,15 +50,15 @@ class Handler extends ExceptionHandler
         });
     }
 
-    public function render($request, Throwable $exception)
-    {
-        if($exception instanceof Exception) {
-            return response()->json([
-                'message' => 'A requisição executada não pode ser executada ou encontrada. Verifique se todos os atributos estão corretos.',
-                'status' => '404'
-            ], 404);
-        }
+    // public function render($request, Throwable $exception)
+    // {
+    //     if($exception instanceof Exception) {
+    //         return response()->json([
+    //             'message' => 'A requisição executada não pode ser executada ou encontrada. Verifique se todos os atributos estão corretos.',
+    //             'status' => '404'
+    //         ], 404);
+    //     }
 
-        return parent::render($request, $exception);
-    }
+    //     return parent::render($request, $exception);
+    // }
 }

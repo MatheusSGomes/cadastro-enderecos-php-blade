@@ -39,19 +39,18 @@ class UfsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    // public function store(UfRequest $request)
     public function store(UfRequest $request)
     {
-
         try {
             $ufs = UF::create($request->all());
+            return response()->json(["mensagem" => "UF cadastrada com sucesso."], 200);
         } catch (Exception $e) {
             return response()->json([
                 "mensagem" => "Não foi possível cadastrar a UF.",
                 "status" => 503
             ], 503);
         }
-
-        return response()->json(["mensagem" => "UF cadastrada com sucesso."], 200);
     }
 
     /**

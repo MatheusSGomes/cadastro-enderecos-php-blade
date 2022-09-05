@@ -42,13 +42,13 @@ class MunicipioController extends Controller
     {
         try {
             $municipio = Municipio::create($request->all());
+            return response()->json($municipio, 200);
         } catch (Exception $e) {
             return response()->json([
                 "mensagem" => "Não foi possível cadastrar a UF.",
                 "status" => 503
             ], 503);
         }
-        return response()->json($municipio, 200);
     }
 
     /**

@@ -57,14 +57,13 @@ class PessoaController extends Controller
                     'cep'  => $endereco['cep']
                 ]);
             }
+            return response()->json(["mensagem" => "Pessoa cadastrada com sucesso."], 200);
         } catch (Exception $e) {
             return response()->json([
                 "mensagem" => "Não foi possível cadastrar a pessoa.",
                 "status" => 503
             ], 503);
         }
-
-        return response()->json(["mensagem" => "Pessoa cadastrada com sucesso."], 200);
     }
 
     /**
