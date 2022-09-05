@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use App\Models\UF;
 use App\Http\Requests\UfRequest;
 use Exception;
@@ -13,11 +14,16 @@ class UfsController extends Controller
     {
         $this->model = $ufs;
     }
+    
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+     * @OA\Get(
+     *     tags={"\uf"},
+     *     summary="Returns a list of UFs",
+     *     description="Returns a object of UFs",
+     *     path="/uf",
+     *     @OA\Response(response="200", description="A list with UFs")
+     * )
+    */
     public function index(Request $request)
     {
         $busca = $this->model->filter([
@@ -33,13 +39,6 @@ class UfsController extends Controller
         return response()->json(UF::all(), 200);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    // public function store(UfRequest $request)
     public function store(UfRequest $request)
     {
         try {
@@ -53,37 +52,18 @@ class UfsController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         $uf = UF::where('codigo_uf', $id)->first();
         return response()->json($uf, 200);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         UF::where('codigo_uf', $id)->update($request->all());
         return response()->json(Uf::all(), 200);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         try {
