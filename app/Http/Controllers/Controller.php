@@ -10,8 +10,8 @@ use Illuminate\Routing\Controller as BaseController;
 /**
  * @OA\Info(
  *      version="1.0.0",
- *      title="Documentação da API de Gestão de Pessoas",
- *      description="Descrição da API",
+ *      title="Laravel OpenApi Demo Documentation",
+ *      description="L5 Swagger OpenApi description",
  *      @OA\Contact(
  *          email="admin@admin.com"
  *      ),
@@ -25,12 +25,13 @@ use Illuminate\Routing\Controller as BaseController;
  *      url=L5_SWAGGER_CONST_HOST,
  *      description="Demo API Server"
  * )
- *
- * @OA\Tag(
- *     name="Pessoa",
- *     description="API Endpoints de Pessoas"
- * )
- */
+
+    *
+    * @OA\Tag(
+    *     name="Projects",
+    *     description="API Endpoints of Projects"
+    * )
+    */
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
