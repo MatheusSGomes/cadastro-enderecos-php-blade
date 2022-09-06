@@ -143,8 +143,20 @@ class PessoaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        Pessoa::where('codigo_pessoa', $id)->update($request->all());
-        return response()->json(Pessoa::all(), 200);
+        try {
+            $pessoa = Pessoa::where('codigo_pessoa', $id)->update($request->all());
+            if($pessoa === 0)
+                return response()->json([
+                    "mensagem" => "Não foi possível alterar, pois não existe um registro de Bairro no endereço da Pessoa informada.",
+                    "status" => 400
+                ], 400);
+            return response()->json(Pessoa::all(), 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                "mensagem" => "Não foi possível alterar a Pessoa.",
+                "status" => 503
+            ], 503);
+        }
     }
 
     /**
