@@ -25,17 +25,24 @@ class MunicipioController extends Controller
     */
     public function index(Request $request)
     {
-        $busca = $this->model->filter([
-            'codigoUF' => $request->query('codigoUF'),
-            'codigoMunicipio' => $request->query('codigoMunicipio'),
-            'nome' => $request->query('nome'),
-            'status' => $request->query('status')
-        ]);
-
-        if($request->query() !== [])
-            return response()->json($busca, 200);
-
-        return response()->json(Municipio::all(), 200);
+        try {
+            $busca = $this->model->filter([
+                'codigoUF' => $request->query('codigoUF'),
+                'codigoMunicipio' => $request->query('codigoMunicipio'),
+                'nome' => $request->query('nome'),
+                'status' => $request->query('status')
+            ]);
+    
+            if($request->query() !== [])
+                return response()->json($busca, 200);
+    
+            return response()->json(Municipio::all(), 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                "mensagem" => "Não foi possível pesquisar o Município.",
+                "status" => 503
+            ], 503);
+        } 
     }
 
     /**
@@ -133,8 +140,22 @@ class MunicipioController extends Controller
      */
     public function update(Request $request, $id)
     {
-        Municipio::where('codigo_municipio', $id)->update($request->all());
-        return response()->json(Municipio::all(), 200);
+        try {
+            $municipio = Municipio::where('codigo_municipio', $id)->update($request->all());
+
+            if($municipio === 0)
+                return response()->json([
+                    "mensagem" => "Não foi possível alterar, pois não existe um registro de Município com o mesmo nome para a UF informada.",
+                    "status" => 400
+                ], 400);
+
+            return response()->json(Municipio::all(), 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                "mensagem" => "Não foi possível alterar o Muncípio.",
+                "status" => 503
+            ], 503);
+        }
     }
 
     /**

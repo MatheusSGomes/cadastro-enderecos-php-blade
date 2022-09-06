@@ -27,17 +27,24 @@ class UfsController extends Controller
     */
     public function index(Request $request)
     {
-        $busca = $this->model->filter([
-            'codigoUF' => $request->query('codigoUF'),
-            'sigla' => $request->query('sigla'),
-            'nome' => $request->query('nome'),
-            'status' => $request->query('status'),
-        ]);
-
-        if($request->query() !== [])
-            return response()->json($busca, 200);
-
-        return response()->json(UF::all(), 200);
+        try {
+            $busca = $this->model->filter([
+                'codigoUF' => $request->query('codigoUF'),
+                'sigla' => $request->query('sigla'),
+                'nome' => $request->query('nome'),
+                'status' => $request->query('status'),
+            ]);
+    
+            if($request->query() !== [])
+                return response()->json($busca, 200);
+    
+            return response()->json(UF::all(), 200);
+        } catch (Exception $e) {
+            return response()->json([
+                "mensagem" => "Não foi possível pesquisar a UF.",
+                "status" => 503
+            ], 503);
+        }
     }
 
     /**
