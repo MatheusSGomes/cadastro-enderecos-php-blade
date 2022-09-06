@@ -550,10 +550,28 @@
             }
         }
     },
-    "tags": [
-        {
-            "name": "Cadastro de Endereços",
-            "description": "API Endpoints da API de Cadastro de Endereços"
+    "components": {
+        "schemas": {
+            "Bairro": {
+                "title": "Bairro",
+                "description": "Bairro model"
+            },
+            "Endereco": {
+                "title": "Endereco",
+                "description": "Endereco model"
+            },
+            "Municipio": {
+                "title": "Municipio",
+                "description": "Municipio model"
+            },
+            "Pessoa": {
+                "title": "Pessoa",
+                "description": "Pessoa model"
+            },
+            "UF": {
+                "title": "UF",
+                "description": "UF model"
+            }
         }
-    ]
+    }
 }

@@ -6,6 +6,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Municipio;
 
+/**
+ * @OA\Schema(
+ *     title="Bairro",
+ *     description="Bairro model",
+ * )
+ */
 class Bairro extends Model
 {
     use HasFactory;
@@ -18,7 +24,7 @@ class Bairro extends Model
         'nome',
         'status'
     ];
-
+    
     public function municipio()
     {
         return $this->hasOne(Municipio::class, 'codigo_municipio', 'codigo_municipio');

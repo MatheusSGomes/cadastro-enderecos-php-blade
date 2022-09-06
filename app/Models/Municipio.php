@@ -6,6 +6,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\UF;
 
+/**
+ * @OA\Schema(
+ *     title="Municipio",
+ *     description="Municipio model",
+ * )
+ */
 class Municipio extends Model
 {
     use HasFactory;

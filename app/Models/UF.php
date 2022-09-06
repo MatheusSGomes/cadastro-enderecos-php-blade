@@ -5,6 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @OA\Schema(
+ *     title="UF",
+ *     description="UF model",
+ * )
+ */
 class UF extends Model
 {
     use HasFactory;

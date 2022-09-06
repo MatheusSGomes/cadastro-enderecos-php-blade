@@ -17,10 +17,6 @@ use Illuminate\Routing\Controller as BaseController;
  *      url=L5_SWAGGER_CONST_HOST,
  *      description="API Server"
  * )
- * @OA\Tag(
- *     name="Cadastro de Endereços",
- *     description="API Endpoints da API de Cadastro de Endereços"
- * )
  */
 class Controller extends BaseController
 {

@@ -9,6 +9,12 @@ use App\Models\{
     Bairro
 };
 
+/**
+ * @OA\Schema(
+ *     title="Endereco",
+ *     description="Endereco model",
+ * )
+ */
 class Endereco extends Model
 {
     use HasFactory;
