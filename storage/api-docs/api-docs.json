@@ -12,6 +12,137 @@
         }
     ],
     "paths": {
+        "/bairro": {
+            "get": {
+                "tags": [
+                    "Bairros"
+                ],
+                "summary": "Retorna uma lista de bairros cadastrados",
+                "description": "Retorna um Array com todos os bairros cadastrados",
+                "operationId": "8c4adb1c5a368105c1534e78e5779711",
+                "responses": {
+                    "200": {
+                        "description": "Array com bairros"
+                    },
+                    "503": {
+                        "description": "JSON com mensagem de que não foi possível pesquisar um determinado bairro."
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Bairros"
+                ],
+                "summary": "Retorna o bairro cadastrado",
+                "description": "Armazena um novo bairro.",
+                "operationId": "536fd30f2762a5ebd62dfb94e6540145",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "codigo_municipio": {
+                                        "type": "integer"
+                                    },
+                                    "nome": {
+                                        "type": "string"
+                                    },
+                                    "status": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "codigo_municipio": 5,
+                                    "nome": "CENTRO",
+                                    "status": 1
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Bairro cadastrado com sucesso."
+                    },
+                    "503": {
+                        "description": "Não foi possível cadastrar o bairro."
+                    }
+                }
+            }
+        },
+        "/bairro/{id}": {
+            "get": {
+                "tags": [
+                    "Bairros"
+                ],
+                "summary": "Retorna um bairro cadastrado",
+                "description": "Retorna um JSON com o bairro pesquisado.",
+                "operationId": "e560ec2f8471072f1388e0295163271b",
+                "responses": {
+                    "200": {
+                        "description": "JSON com o bairro"
+                    },
+                    "503": {
+                        "description": "JSON com mensagem de que não foi possível encontrar um determinado bairro."
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Bairros"
+                ],
+                "summary": "Retorna o bairro atualizado.",
+                "description": "Atualiza um bairro",
+                "operationId": "4d2a5a09311f9b7094d3db9b90e6a9b5",
+                "parameters": [
+                    {
+                        "name": "request",
+                        "in": "path",
+                        "description": "Dados da requisição",
+                        "required": true
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id do bairro que será atualizado.",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Bairro atualizado com sucesso."
+                    },
+                    "404": {
+                        "description": "Não foi possível encontrar o bairro."
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Bairros"
+                ],
+                "summary": "Retorna um array vazio.",
+                "description": "Apaga um bairro",
+                "operationId": "f2b6ad517564df22c631f44aad83429e",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id do bairro que será apagado.",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Bairro apagado com sucesso."
+                    },
+                    "404": {
+                        "description": "Não foi possível encontrar o bairro."
+                    }
+                }
+            }
+        },
         "/municipio": {
             "get": {
                 "tags": [
@@ -25,7 +156,7 @@
                         "description": "Array com municípios"
                     },
                     "503": {
-                        "description": "Json com mensagem de que não foi possível pesquisar um determinado município."
+                        "description": "JSON com mensagem de que não foi possível pesquisar um determinado município."
                     }
                 }
             },
@@ -156,7 +287,7 @@
                         "description": "Array com UFs"
                     },
                     "503": {
-                        "description": "Json com mensagem de que não foi possível pesquisar uma determinada UF"
+                        "description": "JSON com mensagem de que não foi possível pesquisar uma determinada UF"
                     }
                 }
             },

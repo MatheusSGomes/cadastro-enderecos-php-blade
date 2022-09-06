@@ -20,7 +20,7 @@ class MunicipioController extends Controller
      *     description="Retorna um Array com todos os municípios cadastrados",
      *     path="/municipio",
      *     @OA\Response(response="200", description="Array com municípios"),
-     *     @OA\Response(response="503", description="Json com mensagem de que não foi possível pesquisar um determinado município.")
+     *     @OA\Response(response="503", description="JSON com mensagem de que não foi possível pesquisar um determinado município.")
      * )
     */
     public function index(Request $request)

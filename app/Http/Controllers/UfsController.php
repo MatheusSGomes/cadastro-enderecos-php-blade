@@ -22,7 +22,7 @@ class UfsController extends Controller
      *     description="Retorna um Array com todos os UFs cadastrados",
      *     path="/uf",
      *     @OA\Response(response="200", description="Array com UFs"),
-     *     @OA\Response(response="503", description="Json com mensagem de que não foi possível pesquisar uma determinada UF")
+     *     @OA\Response(response="503", description="JSON com mensagem de que não foi possível pesquisar uma determinada UF")
      * )
     */
     public function index(Request $request)
