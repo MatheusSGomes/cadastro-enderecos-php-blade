@@ -7,7 +7,7 @@ Cadastros necessários: UF, MUNICÍPIO, BAIRRO e PESSOA.
 
 Tabelas de UF (tb_uf), Município (tb_municipio), Bairro (tb_bairro), Endereço (tb_endereco) e Pessoa (tb_pessoa).
 
-OBS: O cadastro na tabela de endereços deveria ser feito no endpoint de pessoa.
+**OBS:** *O cadastro na tabela de endereços deveria ser feito no endpoint de pessoa.*
 
 Respostas 200 para requisições que deram certo e status diferente de 200 para requisições que deram errado.
 
@@ -52,4 +52,5 @@ O projeto deveria ser desenvolvido usando os seguintes itens do Laravel 9:
 - /pessoa?codigoPessoa=109&status=1
 - /pessoa?login=jose.maria
 
+## Screenshot documentação da API 
 ![](Screenshot-Swagger.png)

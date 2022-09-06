@@ -120,15 +120,31 @@ class UfsController extends Controller
      *          description="UF atualizada com sucesso.",
      *      ),
      *      @OA\Response(
-     *          response=404,
-     *          description="Não foi possível encontrar a UF.",
+     *          response=400,
+     *          description="Não foi possível alterar, pois não existe um registro com a UF cadastrada.",
+     *      ),
+     *      @OA\Response(
+     *          response=503,
+     *          description="Não foi possível alterar a UF.",
      *      ),
      * )
      */
     public function update(Request $request, $id)
     {
-        UF::where('codigo_uf', $id)->update($request->all());
-        return response()->json(Uf::all(), 200);
+        try{
+            $uf = UF::where('codigo_uf', $id)->update($request->all());
+            if($uf === 0)
+                return response()->json([
+                    "mensagem" => "Não foi possível alterar, pois não existe um registro com a UF cadastrada.",
+                    "status" => 400
+                ], 400);
+            return response()->json(Uf::all(), 200);
+        } catch(Exception $e) {
+            return response()->json([
+                "mensagem" => "Não foi possível alterar a UF.",
+                "status" => 503
+            ], 503);
+        }
     }
 
     /**
