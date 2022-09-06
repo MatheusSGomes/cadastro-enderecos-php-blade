@@ -12,11 +12,17 @@ class MunicipioController extends Controller
     {
         $this->model = $municipio;
     }
+
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+     * @OA\Get(
+     *     tags={"Municípios"},
+     *     summary="Retorna uma lista de municípios cadastrados",
+     *     description="Retorna um Array com todos os municípios cadastrados",
+     *     path="/municipio",
+     *     @OA\Response(response="200", description="Array com municípios"),
+     *     @OA\Response(response="503", description="Json com mensagem de que não foi possível pesquisar um determinado município.")
+     * )
+    */
     public function index(Request $request)
     {
         $busca = $this->model->filter([
@@ -33,10 +39,40 @@ class MunicipioController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @OA\Post(
+     *      path="/municipio",
+     *      description="Armazena um novo Município.",
+     *      tags={"Municípios"},
+     *      summary="Retorna o município cadastrado",
+     *      @OA\RequestBody(
+     *          @OA\MediaType(
+     *              mediaType="application/json",
+     *              @OA\Schema(
+     *                  @OA\Property(
+     *                      property="codigo_uf",
+     *                      type="integer"
+     *                  ),
+     *                  @OA\Property(
+     *                      property="nome",
+     *                      type="string"
+     *                  ),
+     *                  @OA\Property(
+     *                      property="status",
+     *                      type="integer"
+     *                  ),
+     *              example={"codigo_uf": "1", "nome": "TAGUATINGA", "status": 1}
+     *              ),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Município cadastrado com sucesso.",
+     *      ),
+     *      @OA\Response(
+     *          response=503,
+     *          description="Não foi possível cadastrar o Município.",
+     *      ),
+     * )
      */
     public function store(MunicipioRequest $request)
     {
@@ -45,18 +81,22 @@ class MunicipioController extends Controller
             return response()->json($municipio, 200);
         } catch (Exception $e) {
             return response()->json([
-                "mensagem" => "Não foi possível cadastrar a UF.",
+                "mensagem" => "Não foi possível cadastrar o Município.",
                 "status" => 503
             ], 503);
         }
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+     * @OA\Get(
+     *     tags={"Municípios"},
+     *     summary="Retorna um município cadastrado",
+     *     description="Retorna um JSON com todos o município pesquisado.",
+     *     path="/municipio/{id}",
+     *     @OA\Response(response="200", description="JSON com o município"),
+     *     @OA\Response(response="503", description="JSON com mensagem de que não foi possível encontrar um determinado município.")
+     * )
+    */
     public function show($id)
     {
         $municipio = Municipio::where('codigo_municipio', $id)->first();
@@ -64,11 +104,32 @@ class MunicipioController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @OA\Put(
+     *      path="/municipio/{id}",
+     *      description="Atualiza um Município",
+     *      tags={"Municípios"},
+     *      summary="Retorna um município atualizado.",
+     *      @OA\Parameter(
+     *          name="request",
+     *          in="path",
+     *          description="Dados da requisição",
+     *          required=true,
+     *      ),
+     *      @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          description="Id do município que será atualizado.",
+     *          required=true,
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Município atualizado com sucesso.",
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Não foi possível encontrar o município.",
+     *      ),
+     * )
      */
     public function update(Request $request, $id)
     {
@@ -77,10 +138,26 @@ class MunicipioController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @OA\Delete(
+     *      path="/municipio/{id}",
+     *      description="Apaga uma município",
+     *      tags={"Municípios"},
+     *      summary="Retorna um array vazio.",
+     *      @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          description="Id do município que será apagado.",
+     *          required=true,
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Município apagado com sucesso.",
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Não foi possível encontrar o município.",
+     *      ),
+     * )
      */
     public function destroy($id)
     {

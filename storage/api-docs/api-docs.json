@@ -12,10 +12,141 @@
         }
     ],
     "paths": {
+        "/municipio": {
+            "get": {
+                "tags": [
+                    "Municípios"
+                ],
+                "summary": "Retorna uma lista de municípios cadastrados",
+                "description": "Retorna um Array com todos os municípios cadastrados",
+                "operationId": "adc28966a21c645f4ce8e50eabfd8d1a",
+                "responses": {
+                    "200": {
+                        "description": "Array com municípios"
+                    },
+                    "503": {
+                        "description": "Json com mensagem de que não foi possível pesquisar um determinado município."
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Municípios"
+                ],
+                "summary": "Retorna o município cadastrado",
+                "description": "Armazena um novo Município.",
+                "operationId": "91b057fad8e8461b12343a98512f2b9a",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "codigo_uf": {
+                                        "type": "integer"
+                                    },
+                                    "nome": {
+                                        "type": "string"
+                                    },
+                                    "status": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "codigo_uf": "1",
+                                    "nome": "TAGUATINGA",
+                                    "status": 1
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Município cadastrado com sucesso."
+                    },
+                    "503": {
+                        "description": "Não foi possível cadastrar o Município."
+                    }
+                }
+            }
+        },
+        "/municipio/{id}": {
+            "get": {
+                "tags": [
+                    "Municípios"
+                ],
+                "summary": "Retorna um município cadastrado",
+                "description": "Retorna um JSON com todos o município pesquisado.",
+                "operationId": "6dc36a230e96258a4157e6453d6dc0ea",
+                "responses": {
+                    "200": {
+                        "description": "JSON com o município"
+                    },
+                    "503": {
+                        "description": "JSON com mensagem de que não foi possível encontrar um determinado município."
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Municípios"
+                ],
+                "summary": "Retorna um município atualizado.",
+                "description": "Atualiza um Município",
+                "operationId": "df4fc756d73faa0fee7b58547b44093e",
+                "parameters": [
+                    {
+                        "name": "request",
+                        "in": "path",
+                        "description": "Dados da requisição",
+                        "required": true
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id do município que será atualizado.",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Município atualizado com sucesso."
+                    },
+                    "404": {
+                        "description": "Não foi possível encontrar o município."
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Municípios"
+                ],
+                "summary": "Retorna um array vazio.",
+                "description": "Apaga uma município",
+                "operationId": "e03769af96b9def5e3117e0288b6e610",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id do município que será apagado.",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Município apagado com sucesso."
+                    },
+                    "404": {
+                        "description": "Não foi possível encontrar o município."
+                    }
+                }
+            }
+        },
         "/uf": {
             "get": {
                 "tags": [
-                    "uf"
+                    "UFs"
                 ],
                 "summary": "Retorna uma lista de UFs",
                 "description": "Retorna um Array com todos os UFs cadastrados",
@@ -31,7 +162,7 @@
             },
             "post": {
                 "tags": [
-                    "uf"
+                    "UFs"
                 ],
                 "summary": "Retorna a UF cadastrada",
                 "description": "Armazena uma nova UF",
@@ -55,9 +186,33 @@
             }
         },
         "/uf/{id}": {
+            "get": {
+                "tags": [
+                    "UFs"
+                ],
+                "summary": "Retorna uma lista de UFs",
+                "description": "Retorna um Array com todos os UFs cadastrados",
+                "operationId": "33797d11424777ee2ee7ea599d725812",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id da UF",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna UF em formato JSON"
+                    },
+                    "503": {
+                        "description": "Json com mensagem de que não foi possível encontrar uma determinada UF."
+                    }
+                }
+            },
             "put": {
                 "tags": [
-                    "uf"
+                    "UFs"
                 ],
                 "summary": "Retorna a UF atualizada",
                 "description": "Atualiza uma nova UF",
@@ -87,7 +242,7 @@
             },
             "delete": {
                 "tags": [
-                    "uf"
+                    "UFs"
                 ],
                 "summary": "Retorna um array vazio.",
                 "description": "Apaga uma nova UF",

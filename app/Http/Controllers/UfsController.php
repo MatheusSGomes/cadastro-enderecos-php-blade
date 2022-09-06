@@ -17,7 +17,7 @@ class UfsController extends Controller
     
     /**
      * @OA\Get(
-     *     tags={"uf"},
+     *     tags={"UFs"},
      *     summary="Retorna uma lista de UFs",
      *     description="Retorna um Array com todos os UFs cadastrados",
      *     path="/uf",
@@ -44,7 +44,7 @@ class UfsController extends Controller
      * @OA\Post(
      *      path="/uf",
      *      description="Armazena uma nova UF",
-     *      tags={"uf"},
+     *      tags={"UFs"},
      *      summary="Retorna a UF cadastrada",
      *      @OA\Parameter(
      *          name="request",
@@ -75,6 +75,22 @@ class UfsController extends Controller
         }
     }
 
+    /**
+     * @OA\Get(
+     *     tags={"UFs"},
+     *     summary="Retorna uma lista de UFs",
+     *     description="Retorna um Array com todos os UFs cadastrados",
+     *     path="/uf/{id}",
+     *     @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          description="id da UF",
+     *          required=true,
+     *      ),
+     *     @OA\Response(response="200", description="Retorna UF em formato JSON"),
+     *     @OA\Response(response="503", description="Json com mensagem de que não foi possível encontrar uma determinada UF.")
+     * )
+    */
     public function show($id)
     {
         $uf = UF::where('codigo_uf', $id)->first();
@@ -85,7 +101,7 @@ class UfsController extends Controller
      * @OA\Put(
      *      path="/uf/{id}",
      *      description="Atualiza uma nova UF",
-     *      tags={"uf"},
+     *      tags={"UFs"},
      *      summary="Retorna a UF atualizada",
      *      @OA\Parameter(
      *          name="request",
@@ -119,7 +135,7 @@ class UfsController extends Controller
      * @OA\Delete(
      *      path="/uf/{id}",
      *      description="Apaga uma nova UF",
-     *      tags={"uf"},
+     *      tags={"UFs"},
      *      summary="Retorna um array vazio.",
      *      @OA\Parameter(
      *          name="id",
