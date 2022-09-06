@@ -15,11 +15,17 @@ class PessoaController extends Controller
     {
         $this->model = $pessoa;
     }
+    
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+     * @OA\Get(
+     *     tags={"Pessoas"},
+     *     summary="Retorna uma lista de pessoas cadastradas",
+     *     description="Retorna um Array com todos as pessoas cadastradas",
+     *     path="/pessoa",
+     *     @OA\Response(response="200", description="Array com pessoas"),
+     *     @OA\Response(response="503", description="JSON com mensagem de que não foi possível pesquisar um determinada pessoa.")
+     * )
+    */
     public function index(Request $request)
     {
         $pessoas = Pessoa::with(['enderecos'])->get();
@@ -37,10 +43,35 @@ class PessoaController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @OA\Post(
+     *      path="/pessoa",
+     *      description="Armazena uma nova pessoa.",
+     *      tags={"Pessoas"},
+     *      summary="Retorna a pessoa cadastrado",
+     *      @OA\RequestBody(
+     *          @OA\MediaType(
+     *              mediaType="application/json",
+     *              @OA\Schema(
+     *                  @OA\Property(property="nome", type="string"),
+     *                  @OA\Property(property="sobrenome", type="string"),
+     *                  @OA\Property(property="idade", type="integer"),
+     *                  @OA\Property(property="login", type="string"),
+     *                  @OA\Property(property="senha", type="string"),
+     *                  @OA\Property(property="status", type="integer"),
+     *                  @OA\Property(property="enderecos",type="object"),
+     *                  example={"nome": "José", "sobrenome": "dos Reis", "idade": 27, "login": "jose.login.email", "senha":"senhaDoJosé", "status": 1, "enderecos": {"codigoBairro":4, "nomeRua": "RUA A", "numero":"123", "complemento": "MINHA CASA UM", "cep": "11111-678"}}
+     *              ),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Pessoa e endereço cadastrados com sucesso.",
+     *      ),
+     *      @OA\Response(
+     *          response=503,
+     *          description="Não foi possível cadastrar a pessoa.",
+     *      ),
+     * )
      */
     public function store(PessoaRequest $request)
     {
@@ -67,11 +98,15 @@ class PessoaController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+     * @OA\Get(
+     *     tags={"Pessoas"},
+     *     summary="Retorna uma pessoa cadastrada",
+     *     description="Retorna um JSON com a pessoa pesquisada.",
+     *     path="/pessoa/{id}",
+     *     @OA\Response(response="200", description="JSON com a pessoa"),
+     *     @OA\Response(response="503", description="JSON com mensagem de que não foi possível encontrar uma determinada pessoa.")
+     * )
+    */
     public function show($id)
     {
         $pessoa = Pessoa::where('codigo_pessoa', $id)->first();
@@ -79,11 +114,32 @@ class PessoaController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @OA\Put(
+     *      path="/pessoa/{id}",
+     *      description="Atualiza uma pessoa",
+     *      tags={"Pessoas"},
+     *      summary="Retorna a pessoa atualizada.",
+     *      @OA\Parameter(
+     *          name="request",
+     *          in="path",
+     *          description="Dados da requisição",
+     *          required=true,
+     *      ),
+     *      @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          description="Id da pessoa que será atualizado.",
+     *          required=true,
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Pessoa atualizada com sucesso.",
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Não foi possível encontrar a pessoa.",
+     *      ),
+     * )
      */
     public function update(Request $request, $id)
     {
@@ -92,10 +148,26 @@ class PessoaController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @OA\Delete(
+     *      path="/pessoa/{id}",
+     *      description="Apaga uma pessoa",
+     *      tags={"Pessoas"},
+     *      summary="Retorna um array vazio.",
+     *      @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          description="Id da pessoa que será apagada.",
+     *          required=true,
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Pessoa apagada com sucesso.",
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Não foi possível encontrar a pessoa.",
+     *      ),
+     * )
      */
     public function destroy($id)
     {

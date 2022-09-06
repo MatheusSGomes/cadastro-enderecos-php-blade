@@ -274,6 +274,159 @@
                 }
             }
         },
+        "/pessoa": {
+            "get": {
+                "tags": [
+                    "Pessoas"
+                ],
+                "summary": "Retorna uma lista de pessoas cadastradas",
+                "description": "Retorna um Array com todos as pessoas cadastradas",
+                "operationId": "c007b72388b982ed1dc75dec5198c860",
+                "responses": {
+                    "200": {
+                        "description": "Array com pessoas"
+                    },
+                    "503": {
+                        "description": "JSON com mensagem de que não foi possível pesquisar um determinada pessoa."
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Pessoas"
+                ],
+                "summary": "Retorna a pessoa cadastrado",
+                "description": "Armazena uma nova pessoa.",
+                "operationId": "6c37d1af1721a716b57f29e970829fae",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "nome": {
+                                        "type": "string"
+                                    },
+                                    "sobrenome": {
+                                        "type": "string"
+                                    },
+                                    "idade": {
+                                        "type": "integer"
+                                    },
+                                    "login": {
+                                        "type": "string"
+                                    },
+                                    "senha": {
+                                        "type": "string"
+                                    },
+                                    "status": {
+                                        "type": "integer"
+                                    },
+                                    "enderecos": {
+                                        "type": "object"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "nome": "José",
+                                    "sobrenome": "dos Reis",
+                                    "idade": 27,
+                                    "login": "jose.login.email",
+                                    "senha": "senhaDoJosé",
+                                    "status": 1,
+                                    "enderecos": {
+                                        "codigoBairro": 4,
+                                        "nomeRua": "RUA A",
+                                        "numero": "123",
+                                        "complemento": "MINHA CASA UM",
+                                        "cep": "11111-678"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Pessoa e endereço cadastrados com sucesso."
+                    },
+                    "503": {
+                        "description": "Não foi possível cadastrar a pessoa."
+                    }
+                }
+            }
+        },
+        "/pessoa/{id}": {
+            "get": {
+                "tags": [
+                    "Pessoas"
+                ],
+                "summary": "Retorna uma pessoa cadastrada",
+                "description": "Retorna um JSON com a pessoa pesquisada.",
+                "operationId": "9e059d4365de737056fa9df9286a5dc2",
+                "responses": {
+                    "200": {
+                        "description": "JSON com a pessoa"
+                    },
+                    "503": {
+                        "description": "JSON com mensagem de que não foi possível encontrar uma determinada pessoa."
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Pessoas"
+                ],
+                "summary": "Retorna a pessoa atualizada.",
+                "description": "Atualiza uma pessoa",
+                "operationId": "07fbd3b80e0c95c79b0f3d5de43155d2",
+                "parameters": [
+                    {
+                        "name": "request",
+                        "in": "path",
+                        "description": "Dados da requisição",
+                        "required": true
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id da pessoa que será atualizado.",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Pessoa atualizada com sucesso."
+                    },
+                    "404": {
+                        "description": "Não foi possível encontrar a pessoa."
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Pessoas"
+                ],
+                "summary": "Retorna um array vazio.",
+                "description": "Apaga uma pessoa",
+                "operationId": "19e5d70d7aa080278fbe038acd83fb93",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id da pessoa que será apagada.",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Pessoa apagada com sucesso."
+                    },
+                    "404": {
+                        "description": "Não foi possível encontrar a pessoa."
+                    }
+                }
+            }
+        },
         "/uf": {
             "get": {
                 "tags": [
