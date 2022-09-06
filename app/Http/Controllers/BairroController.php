@@ -4,10 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Bairro;
-use App\Exceptions\MinhaExcecao;
 use Exception;
 use App\Http\Requests\BairroRequest;
-
 
 class BairroController extends Controller
 {
@@ -136,9 +134,20 @@ class BairroController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
-        Bairro::where('codigo_bairro', $id)->update($request->all());
-        return response()->json(Bairro::all(), 200);
+        try {
+            $bairro = Bairro::where('codigo_bairro', $id)->update($request->all());
+            if($bairro === 0)
+                return response()->json([
+                    "mensagem" => "Não foi possível alterar, pois não existe um registro de Bairro com o mesmo nome para o Município informado.",
+                    "status" => 400
+                ], 400);
+            return response()->json(Bairro::all(), 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                "mensagem" => "Não foi possível alterar o Bairro.",
+                "status" => 503
+            ], 503);
+        }   
     }
 
     /**
