@@ -20,3 +20,32 @@ O projeto deveria ser desenvolvido usando os seguintes itens do Laravel 9:
 - PHP 8.1
 - Documentação: OpenAPI / Swagger
 - Banco de dados: PostgreSQL
+
+## Endpoints
+### UF
+- /uf 
+- /uf?codigoUF=15&nome=GOIÁS&sigla=GO
+- /uf?sigla=GO
+
+### Município
+- /municipio 
+- /municipio?codigoUF=10&codigoMunicipio=105&nome=Florianópolis
+- /municipio?codigoMunicipio=106
+- /municipio?codigoMunicipio=109&nome=Goiânia
+- /municipio?nome=Cuiabá
+- /municipio?status=2
+
+### Bairro
+- /bairro 
+- /bairro?codigoBairro=15&codigoMunicipio=10&nome=Vila dos Ipês
+- /bairro?codigoBairro=12
+- /bairro?codigoMunicipio=10&nome=Vila das Pedras
+- /bairro?nome=Vila das Pedras
+- /bairro?status=2
+
+### Pessoa
+- /pessoa
+- /pessoa?status=2&codigoPessoa=12&login=diego
+- /pessoa?status=2
+- /pessoa?codigoPessoa=109&status=1
+- /pessoa?login=jose.maria
