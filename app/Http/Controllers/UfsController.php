@@ -42,22 +42,24 @@ class UfsController extends Controller
 
     /**
      * @OA\Post(
-     *     tags={"uf"},
-     *     path="/uf",
-     *     operationId="storeUf",
-     *     summary="Cadastra nova uf",
-     *     description="Retorna mensagem de uf cadastrada com sucesso",
-     *     @OA\RequestBody(
+     *      path="/uf",
+     *      description="Armazena uma nova UF",
+     *      tags={"uf"},
+     *      summary="Retorna a UF cadastrada",
+     *      @OA\Parameter(
+     *          name="request",
+     *          in="path",
+     *          description="Dados da requisição",
      *          required=true,
-     *     ),
-     *     @OA\Response(
+     *      ),
+     *      @OA\Response(
      *          response=200,
-     *          description="Uf cadastrada com sucesso.",
-     *       ),
+     *          description="UF cadastrada com sucesso.",
+     *      ),
      *      @OA\Response(
      *          response=503,
-     *          description="Erro ao tentar cadastrar uf.",
-     *      )
+     *          description="Não foi possível cadastrar a UF.",
+     *      ),
      * )
      */
     public function store(UfRequest $request)
@@ -79,12 +81,62 @@ class UfsController extends Controller
         return response()->json($uf, 200);
     }
 
+    /**
+     * @OA\Put(
+     *      path="/uf/{id}",
+     *      description="Atualiza uma nova UF",
+     *      tags={"uf"},
+     *      summary="Retorna a UF atualizada",
+     *      @OA\Parameter(
+     *          name="request",
+     *          in="path",
+     *          description="Dados da requisição",
+     *          required=true,
+     *      ),
+     *      @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          description="Id da UF que será atualizada.",
+     *          required=true,
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="UF atualizada com sucesso.",
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Não foi possível encontrar a UF.",
+     *      ),
+     * )
+     */
     public function update(Request $request, $id)
     {
         UF::where('codigo_uf', $id)->update($request->all());
         return response()->json(Uf::all(), 200);
     }
 
+    /**
+     * @OA\Delete(
+     *      path="/uf/{id}",
+     *      description="Apaga uma nova UF",
+     *      tags={"uf"},
+     *      summary="Retorna um array vazio.",
+     *      @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          description="Id da UF que será apagada.",
+     *          required=true,
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="UF apagada com sucesso.",
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Não foi possível encontrar a UF.",
+     *      ),
+     * )
+     */
     public function destroy($id)
     {
         try {

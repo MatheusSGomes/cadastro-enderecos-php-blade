@@ -33,18 +33,79 @@
                 "tags": [
                     "uf"
                 ],
-                "summary": "Cadastra nova uf",
-                "description": "Retorna mensagem de uf cadastrada com sucesso",
-                "operationId": "storeUf",
-                "requestBody": {
-                    "required": true
-                },
+                "summary": "Retorna a UF cadastrada",
+                "description": "Armazena uma nova UF",
+                "operationId": "e7dfd1453a879b3075d683780f40c7ea",
+                "parameters": [
+                    {
+                        "name": "request",
+                        "in": "path",
+                        "description": "Dados da requisição",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "Uf cadastrada com sucesso."
+                        "description": "UF cadastrada com sucesso."
                     },
                     "503": {
-                        "description": "Erro ao tentar cadastrar uf."
+                        "description": "Não foi possível cadastrar a UF."
+                    }
+                }
+            }
+        },
+        "/uf/{id}": {
+            "put": {
+                "tags": [
+                    "uf"
+                ],
+                "summary": "Retorna a UF atualizada",
+                "description": "Atualiza uma nova UF",
+                "operationId": "c84d08baa602d585f625d3722d609e68",
+                "parameters": [
+                    {
+                        "name": "request",
+                        "in": "path",
+                        "description": "Dados da requisição",
+                        "required": true
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id da UF que será atualizada.",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "UF atualizada com sucesso."
+                    },
+                    "404": {
+                        "description": "Não foi possível encontrar a UF."
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "uf"
+                ],
+                "summary": "Retorna um array vazio.",
+                "description": "Apaga uma nova UF",
+                "operationId": "21c6c11e0fd5e3e53c44f8541496116a",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id da UF que será apagada.",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "UF apagada com sucesso."
+                    },
+                    "404": {
+                        "description": "Não foi possível encontrar a UF."
                     }
                 }
             }
