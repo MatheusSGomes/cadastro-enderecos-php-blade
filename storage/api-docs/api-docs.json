@@ -1,28 +1,50 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "Laravel OpenApi Demo Documentation",
-        "description": "L5 Swagger OpenApi description",
+        "title": "API Cadastro de Endereços",
+        "description": "API realizada durante o bootcampo de PHP com Laravel da Squadra",
         "version": "1.0.0"
     },
     "servers": [
         {
             "url": "http://localhost:8000/api/",
-            "description": "Demo API Server"
+            "description": "API Server"
         }
     ],
     "paths": {
         "/uf": {
             "get": {
                 "tags": [
-                    "\\uf"
+                    "uf"
                 ],
-                "summary": "Returns a list of UFs",
-                "description": "Returns a object of UFs",
+                "summary": "Retorna uma lista de UFs",
+                "description": "Retorna um Array com todos os UFs cadastrados",
                 "operationId": "ea813f44177e7db9b4217a80c408fc24",
                 "responses": {
                     "200": {
-                        "description": "A list with UFs"
+                        "description": "Array com UFs"
+                    },
+                    "503": {
+                        "description": "Json com mensagem de que não foi possível pesquisar uma determinada UF"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "uf"
+                ],
+                "summary": "Cadastra nova uf",
+                "description": "Retorna mensagem de uf cadastrada com sucesso",
+                "operationId": "storeUf",
+                "requestBody": {
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Uf cadastrada com sucesso."
+                    },
+                    "503": {
+                        "description": "Erro ao tentar cadastrar uf."
                     }
                 }
             }
@@ -30,8 +52,8 @@
     },
     "tags": [
         {
-            "name": "Projects",
-            "description": "API Endpoints of Projects"
+            "name": "Cadastro de Endereços",
+            "description": "API Endpoints da API de Cadastro de Endereços"
         }
     ]
 }

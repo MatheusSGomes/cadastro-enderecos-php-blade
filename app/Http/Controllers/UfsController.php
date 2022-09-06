@@ -17,11 +17,12 @@ class UfsController extends Controller
     
     /**
      * @OA\Get(
-     *     tags={"\uf"},
-     *     summary="Returns a list of UFs",
-     *     description="Returns a object of UFs",
+     *     tags={"uf"},
+     *     summary="Retorna uma lista de UFs",
+     *     description="Retorna um Array com todos os UFs cadastrados",
      *     path="/uf",
-     *     @OA\Response(response="200", description="A list with UFs")
+     *     @OA\Response(response="200", description="Array com UFs"),
+     *     @OA\Response(response="503", description="Json com mensagem de que não foi possível pesquisar uma determinada UF")
      * )
     */
     public function index(Request $request)
@@ -39,6 +40,26 @@ class UfsController extends Controller
         return response()->json(UF::all(), 200);
     }
 
+    /**
+     * @OA\Post(
+     *     tags={"uf"},
+     *     path="/uf",
+     *     operationId="storeUf",
+     *     summary="Cadastra nova uf",
+     *     description="Retorna mensagem de uf cadastrada com sucesso",
+     *     @OA\RequestBody(
+     *          required=true,
+     *     ),
+     *     @OA\Response(
+     *          response=200,
+     *          description="Uf cadastrada com sucesso.",
+     *       ),
+     *      @OA\Response(
+     *          response=503,
+     *          description="Erro ao tentar cadastrar uf.",
+     *      )
+     * )
+     */
     public function store(UfRequest $request)
     {
         try {
