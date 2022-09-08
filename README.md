@@ -54,3 +54,6 @@ O projeto deveria ser desenvolvido usando os seguintes itens do Laravel 9:
 
 ## Screenshot documentação da API 
 ![](Screenshot-Swagger.png)
+
+## Modelagem do banco de dados
+![](Screenshot-Modelagem-Banco.png)
