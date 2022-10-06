@@ -22,19 +22,19 @@
                 </li>
 
                 <li class="nav-item">
-                  <a class="nav-link" href="{{ route('pessoas') }}">Pessoa</a>
+                  <a class="nav-link" href="{{ route('pessoas') }}">Pessoas</a>
                 </li>
 
                 <li class="nav-item">
-                  <a class="nav-link" href="#">UF</a>
+                  <a class="nav-link" href="{{ route('ufs') }}">UFs</a>
                 </li>
 
                 <li class="nav-item">
-                  <a class="nav-link" href="#">Município</a>
+                  <a class="nav-link" href="#">Municípios</a>
                 </li>
           
                 <li class="nav-item">
-                  <a class="nav-link" href="#">Bairro</a>
+                  <a class="nav-link" href="#">Bairros</a>
                 </li>
             </ul>
             </div>

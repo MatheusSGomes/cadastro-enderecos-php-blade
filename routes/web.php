@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -11,9 +10,9 @@ Route::get('/pessoas', function () {
     return view('pessoas');
 })->name('pessoas');
 
-Route::post('/teste', function (Request $request) {
-    dd($request->all());
-})->name('teste');
+Route::get('/ufs', function () {
+    return view('ufs');
+})->name('ufs');
 
 use App\Http\Controllers\{
     UfsController,
@@ -22,7 +21,7 @@ use App\Http\Controllers\{
     PessoaController
 };
 
-Route::resource('/uf', UfsController::class);
-Route::resource('/municipio', MunicipioController::class);
-Route::resource('/bairro', BairroController::class);
-Route::resource('/pessoa', PessoaController::class);
+// Route::resource('/uf', UfsController::class);
+// Route::resource('/municipio', MunicipioController::class);
+// Route::resource('/bairro', BairroController::class);
+// Route::resource('/pessoa', PessoaController::class);
