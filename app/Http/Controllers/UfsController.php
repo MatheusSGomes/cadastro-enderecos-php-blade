@@ -4,12 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\UF;
-use Exception;
 
 class UfsController extends Controller
 {
     private $model;
-    
+
     public function __construct(UF $ufs)
     {
         $this->model = $ufs;
@@ -18,7 +17,7 @@ class UfsController extends Controller
     public function index(Request $request)
     {
         $ufs = $this->model->all();
-        return view('ufs', compact('ufs'));
+        return view('ufs.index', compact('ufs'));
     }
 
     public function store(Request $request)

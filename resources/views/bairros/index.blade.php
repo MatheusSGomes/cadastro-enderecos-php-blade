@@ -28,8 +28,12 @@
             <div class="col-3">
               <label for="municipio" class="form-label">Município</label>
               <select id="municipio" name="municipio" class="form-select">
-                <option selected>Choose...</option>
-                <option>...</option>
+                <option selected>Escolha...</option>
+
+                @foreach ($ufs as $uf)
+                  <option value="{{ $uf->id }}">{{ $uf->sigla }}</option>
+                @endforeach
+
               </select>
             </div>
           </div>

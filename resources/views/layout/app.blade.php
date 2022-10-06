@@ -30,11 +30,11 @@
               </li>
 
               <li class="nav-item">
-                <a class="nav-link" href="{{-- route('municipios.index') --}}">Municípios</a>
+                <a class="nav-link" href="{{ route('municipios.index') }}">Municípios</a>
               </li>
         
               <li class="nav-item">
-                <a class="nav-link" href="{{-- route('bairros.index') --}}">Bairros</a>
+                <a class="nav-link" href="{{ route('bairros.index') }}">Bairros</a>
               </li>
           </ul>
           </div>

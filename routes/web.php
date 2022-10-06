@@ -5,36 +5,24 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\{
     UfsController,
-    MunicipioController,
     BairroController,
+    MunicipioController,
     PessoaController
 };
+
+Route::resource('/ufs', UfsController::class);
+Route::resource('/bairros', BairroController::class);
+Route::resource('/municipios', MunicipioController::class);
 
 Route::get('/', function () {
     return view('index');
 })->name('index');
-
-Route::get('/ufs', function () {
-    return view('ufs');
-})->name('ufs');
-
-
-Route::resource('/ufs', UfsController::class);
-
-
 
 Route::get('/pessoas', function () {
     return view('pessoas');
 })->name('pessoas');
 
 
-Route::get('/municipios', function () {
-    return view('municipios');
-})->name('municipios');
-
-Route::get('/bairros', function () {
-    return view('bairros');
-})->name('bairros');
 
 Route::post('/teste', function (Request $request) {
     dd($request->all());
