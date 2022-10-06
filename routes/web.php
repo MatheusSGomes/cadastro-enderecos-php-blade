@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -13,6 +14,18 @@ Route::get('/pessoas', function () {
 Route::get('/ufs', function () {
     return view('ufs');
 })->name('ufs');
+
+Route::get('/municipios', function () {
+    return view('municipios');
+})->name('municipios');
+
+Route::get('/bairros', function () {
+    return view('bairros');
+})->name('bairros');
+
+Route::post('/teste', function (Request $request) {
+    dd($request->all());
+})->name('teste');
 
 use App\Http\Controllers\{
     UfsController,

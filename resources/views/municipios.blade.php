@@ -1,10 +1,10 @@
 @extends('layout.app')
 @section('content')
-  <h2 class="mt-4">Lista de UFs</h2>
+  <h2 class="mt-4">Lista de Municípios</h2>
 
   <hr />
   <button type="button" class="btn btn-primary mb-4" data-bs-toggle="modal" data-bs-target="#exampleModal">
-    Cadastrar UF
+    Cadastrar Município
   </button>
   
   <!-- Modal -->
@@ -12,7 +12,7 @@
     <div class="modal-dialog modal-md">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Cadastre uma UF</h1>
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Cadastre um Município</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
 
@@ -26,8 +26,11 @@
             </div>
 
             <div class="col-3">
-              <label for="sigla" class="form-label">Sigla</label>
-              <input type="text" class="form-control" id="sigla" name="sigla">
+              <label for="uf" class="form-label">UF</label>
+              <select id="uf" name="uf" class="form-select">
+                <option selected>Choose...</option>
+                <option>...</option>
+              </select>
             </div>
           </div>
           <div class="modal-footer">
@@ -42,7 +45,7 @@
 
   <ul class="list-group mb-4">
     <li class="list-group-item d-flex justify-content-between align-items-center">
-      UF 1
+      Municípios 1
       <div>
         <button type="button" class="btn btn-primary">Editar</button>
         <button type="button" class="btn btn-danger">Apagar</button>
@@ -50,7 +53,7 @@
     </li>
 
     <li class="list-group-item d-flex justify-content-between align-items-center">
-      UF 2
+      Municípios 2
       <div>
         <button type="button" class="btn btn-primary">Editar</button>
         <button type="button" class="btn btn-danger">Apagar</button>
@@ -58,7 +61,7 @@
     </li>
 
     <li class="list-group-item d-flex justify-content-between align-items-center">
-      UF 3
+      Municípios 3
       <div>
         <button type="button" class="btn btn-primary">Editar</button>
         <button type="button" class="btn btn-danger">Apagar</button>
