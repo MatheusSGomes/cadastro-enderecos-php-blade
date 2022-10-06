@@ -3,6 +3,7 @@
   <h2 class="mt-4">Lista de UFs</h2>
 
   <hr />
+  <!-- Botão Modal -->
   <button type="button" class="btn btn-primary mb-4" data-bs-toggle="modal" data-bs-target="#exampleModal">
     Cadastrar UF
   </button>
@@ -16,10 +17,10 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
 
-        <form class="" action="{{ route('teste') }}" method="post">
+        <form class="" action="{{ route('ufs.store') }}" method="post">
           @csrf
       
-          <div class="modal-body row g-3">        
+          <div class="modal-body row g-3">
             <div class="col-9">
               <label for="nome" class="form-label">Nome</label>
               <input type="text" class="form-control" id="nome" name="nome">
@@ -40,29 +41,31 @@
     </div>
   </div>
 
+  @if(session()->has('message'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      {{ session()->get('message') }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>  
+  @endif
+
   <ul class="list-group mb-4">
-    <li class="list-group-item d-flex justify-content-between align-items-center">
-      UF 1
-      <div>
-        <button type="button" class="btn btn-primary">Editar</button>
-        <button type="button" class="btn btn-danger">Apagar</button>
-      </div>
-    </li>
+    @foreach ($ufs as $uf)
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        {{ $uf->nome }} - {{ $uf->sigla }}
+        <div>
+          <a href="{{ route('ufs.edit', $uf->codigo_uf) }}" class="btn btn-primary">Editar</a>
 
-    <li class="list-group-item d-flex justify-content-between align-items-center">
-      UF 2
-      <div>
-        <button type="button" class="btn btn-primary">Editar</button>
-        <button type="button" class="btn btn-danger">Apagar</button>
-      </div>
-    </li>
-
-    <li class="list-group-item d-flex justify-content-between align-items-center">
-      UF 3
-      <div>
-        <button type="button" class="btn btn-primary">Editar</button>
-        <button type="button" class="btn btn-danger">Apagar</button>
-      </div>
-    </li>
+          <form 
+            action="{{ route('ufs.destroy', $uf->codigo_uf) }}" 
+            method="post"
+            style="display: inline-block;"
+          >
+            @csrf
+            @method('delete')
+            <button type="submit" class="btn btn-danger">Apagar</button>
+          </form>
+        </div>
+      </li>
+    @endforeach
   </ul>
 @endsection
