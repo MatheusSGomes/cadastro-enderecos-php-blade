@@ -48,12 +48,20 @@
     </div>
   </div>
 
+  <!-- Messages -->
+  @if(session()->has('message'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      {{ session()->get('message') }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>  
+  @endif
+
   <ul class="list-group mb-4">
     @foreach ($municipios as $municipio)  
       <li class="list-group-item d-flex justify-content-between align-items-center">
         {{ $municipio->nome }}
         <div>
-          <button type="button" class="btn btn-primary">Editar</button>
+          <a href="{{ route('municipios.edit', $municipio->codigo_municipio) }}" class="btn btn-primary">Editar</a>
 
           <form 
             action="{{ route('municipios.destroy', $municipio->codigo_municipio) }}" 
@@ -62,7 +70,7 @@
           >
             @csrf
             @method('DELETE')
-            <button type="button" class="btn btn-danger">Apagar</button>
+            <button type="submit" class="btn btn-danger">Apagar</button>
           </form>
 
         </div>
