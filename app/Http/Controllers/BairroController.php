@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Bairro;
 use Exception;
 use App\Http\Requests\BairroRequest;
+use App\Models\Municipio;
 use App\Models\UF;
 
 class BairroController extends Controller
@@ -18,53 +19,43 @@ class BairroController extends Controller
     public function index(Request $request)
     {
         $bairros = $this->model->all();
-        $ufs = UF::all();
-        return view('bairros.index', compact('bairros', 'ufs'));
+        $municipios = Municipio::all();
+        return view('bairros.index', compact('bairros', 'municipios'));
     }
-
     
-    public function store(BairroRequest $request)
+    public function store(Request $request)
     {
-        dd($request->all());
         $bairro = Bairro::create([
-            'codigo_municipio' => $request->input('municipio'),
             'nome' => $request->input('nome'),
+            'codigo_municipio' => $request->input('municipio'),
+            'status' => 1
         ]);
 
         return redirect('bairros');
     }
 
-    public function show($id)
+    public function edit($id)
     {
-        // $bairro = Bairro::where('codigo_bairro', $id)->first();
-        // return response()->json($bairro, 200);
+        $bairro = Bairro::find($id);
+        $municipios = Municipio::all();
+        return view('bairros.edit', compact('bairro', 'municipios'));
     }
 
     public function update(Request $request, $id)
     {
-        // try {
-        //     $bairro = Bairro::where('codigo_bairro', $id)->update($request->all());
-        //     if($bairro === 0)
-        //         return response()->json([
-        //             "mensagem" => "Não foi possível alterar, pois não existe um registro de Bairro com o mesmo nome para o Município informado.",
-        //             "status" => 400
-        //         ], 400);
-        //     return response()->json(Bairro::all(), 200);
-        // } catch (\Exception $e) {
-        //     return response()->json([
-        //         "mensagem" => "Não foi possível alterar o Bairro.",
-        //         "status" => 503
-        //     ], 503);
-        // }
+        $bairro = Bairro::find($id);
+        $bairro->nome = $request->input('nome');
+        $bairro->codigo_municipio = $request->input('municipio');
+        $bairro->save();
+        return redirect('bairros')
+            ->with('message', 'Bairro editado com sucesso');
     }
 
     public function destroy($id)
     {
-        // try {
-        //     $bairro = Bairro::findOrFail($id);
-        //     $bairro->delete();
-        // } catch(Exception $e) {
-        //     return response()->json(['message' => 'Bairro inexistente.'], 404);
-        // }
+        $bairro = Bairro::find($id);
+        $bairro->delete();
+        return redirect('bairros')
+            ->with('message', 'Bairro excluído com sucesso');
     }
 }

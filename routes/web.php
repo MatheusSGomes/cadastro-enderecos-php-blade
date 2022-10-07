@@ -11,23 +11,18 @@ use App\Http\Controllers\{
 };
 
 Route::resource('/ufs', UfsController::class);
-Route::resource('/bairros', BairroController::class);
 Route::resource('/municipios', MunicipioController::class);
+Route::resource('/bairros', BairroController::class);
+Route::resource('/pessoas', PessoaController::class);
 
 Route::get('/', function () {
     return view('index');
 })->name('index');
 
-Route::get('/pessoas', function () {
-    return view('pessoas');
-})->name('pessoas');
-
-
 
 Route::post('/teste', function (Request $request) {
     dd($request->all());
 })->name('teste');
-
 
 
 // Route::resource('/uf', UfsController::class);

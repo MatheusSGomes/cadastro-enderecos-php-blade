@@ -4,9 +4,17 @@
 
   <hr />
   
-  <h2>Cadastro de Usuário</h2>
+  <h2 class="mb-4">Cadastro de Usuário</h2>
 
-  <form class="row g-3" method="POST" action="{{ route('teste') }}">
+  <!-- Messages -->
+  @if(session()->has('message'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      {{ session()->get('message') }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>  
+  @endif
+
+  <form class="row g-3" method="POST" action="{{ route('pessoas.store') }}">
     @csrf
 
     <div class="col-md-4">
@@ -38,7 +46,6 @@
     {{-- <div class="col-12">
       <button type="submit" class="btn btn-primary">Cadastrar</button>
     </div> --}}
-
 
     <div class="col-12">
       <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">

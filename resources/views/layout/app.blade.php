@@ -18,11 +18,11 @@
           <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="{{-- route('index') --}}">Cadastro</a>
+                <a class="nav-link active" aria-current="page" href="{{ route('index') }}">Cadastro</a>
               </li>
 
               <li class="nav-item">
-                <a class="nav-link" href="{{-- route('pessoas.index') --}}">Pessoas</a>
+                <a class="nav-link" href="{{ route('pessoas.index') }}">Pessoas</a>
               </li>
 
               <li class="nav-item">

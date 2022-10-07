@@ -5,6 +5,14 @@
   <hr />
   <a href="{{ route('index') }}" class="btn btn-primary mb-4">Cadastrar Pessoa</a>
 
+  <!-- Messages -->
+  @if(session()->has('message'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      {{ session()->get('message') }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>  
+  @endif
+
   <ul class="list-group mb-4">
     <li class="list-group-item d-flex justify-content-between align-items-center">
       Pessoa 1
