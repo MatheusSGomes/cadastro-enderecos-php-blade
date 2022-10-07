@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{
     UfsController,
     BairroController,
+    IndexController,
     MunicipioController,
     PessoaController
 };
@@ -14,10 +15,7 @@ Route::resource('/ufs', UfsController::class);
 Route::resource('/municipios', MunicipioController::class);
 Route::resource('/bairros', BairroController::class);
 Route::resource('/pessoas', PessoaController::class);
-
-Route::get('/', function () {
-    return view('index');
-})->name('index');
+Route::get('/', [IndexController::class, 'index'])->name('index');
 
 
 Route::post('/teste', function (Request $request) {
