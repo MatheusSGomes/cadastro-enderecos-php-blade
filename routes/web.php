@@ -16,6 +16,7 @@ Route::resource('/municipios', MunicipioController::class);
 Route::resource('/bairros', BairroController::class);
 Route::resource('/pessoas', PessoaController::class);
 Route::get('/', [IndexController::class, 'index'])->name('index');
+Route::post('/', [IndexController::class, 'store'])->name('index.store');
 
 
 Route::post('/teste', function (Request $request) {
