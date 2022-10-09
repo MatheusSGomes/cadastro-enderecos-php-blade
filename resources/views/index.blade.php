@@ -14,7 +14,7 @@
     </div>  
   @endif
 
-  <form class="row g-3" method="POST" action="{{ route('index.store') }}">
+  <form class="row g-3 mb-5" method="POST" action="{{ route('index.store') }}">
     @csrf
 
     <div class="pessoa">
@@ -48,7 +48,7 @@
     </div>
 
     <div class="col-12">
-      <button class="btn btn-secondary" id="adicionar-endereco">Adicionar endereço</button>
+      <button type="button" class="btn btn-secondary" id="adicionar-endereco">Adicionar endereço</button>
     </div>
 
     <div class="enderecos" id="enderecos">
@@ -108,7 +108,7 @@
           </div>
         </div>
 
-        <button type="button" class="btn btn-danger mt-2" id="remover-endereco">Remover endereço</button>
+        <button type="button" class="btn btn-danger mt-2 d-none" id="remover-endereco" onclick="removeEndereco(event)">Remover endereço</button>
       </div>
 
       {{-- <div class="endereco">
