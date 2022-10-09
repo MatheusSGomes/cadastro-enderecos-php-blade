@@ -82,7 +82,7 @@
             <input type="text" class="form-control" id="cep" name="enderecos[1][cep]">
           </div>
       
-          <div class="col-2">
+          {{-- <div class="col-2">
             <label for="uf" class="form-label">UF</label>
             <select id="uf" class="form-select" name="enderecos[1][uf]">
               <option selected disabled>Escolha...</option>
@@ -90,9 +90,9 @@
                 <option value="{{ $uf->codigo_uf }}">{{ $uf->sigla }}</option>
               @endforeach
             </select>
-          </div>
+          </div> --}}
       
-          <div class="col-6">
+          {{-- <div class="col-6">
             <label for="municipio" class="form-label">Município</label>
             <select id="municipio" class="form-select" name="enderecos[1][municipio]">
               <option selected disabled>Escolha...</option>
@@ -100,9 +100,9 @@
                 <option value="{{ $municipio->codigo_municipio }}">{{ $municipio->nome }}</option>
               @endforeach
             </select>
-          </div>
+          </div> --}}
       
-          <div class="col-12">
+          <div class="col-8">
             <label for="complemento" class="form-label">Complemento</label>
             <input type="text" class="form-control" id="complemento" name="enderecos[1][complemento]">
           </div>
@@ -110,65 +110,6 @@
 
         <button type="button" class="btn btn-danger mt-2 d-none" id="remover-endereco" onclick="removeEndereco(event)">Remover endereço</button>
       </div>
-
-      {{-- <div class="endereco">
-        <h3 class="mt-4 mb-4">Cadastrar Endereço</h3>
-        <hr>
-      
-        <div class="row g-3">
-          <div class="col-4">
-            <label for="rua" class="form-label">Rua</label>
-            <input type="text" class="form-control" id="rua" name="enderecos[2][rua]" />
-          </div>
-      
-          <div class="col-4">
-            <label for="numero" class="form-label">Número</label>
-            <input type="text" class="form-control" id="numero" name="enderecos[2][numero]">
-          </div>
-      
-          <div class="col-4">
-            <label for="bairro" class="form-label">Bairro</label>
-            <select id="bairro" class="form-select" name="enderecos[2][bairro]">
-              <option selected disabled>Escolha...</option>
-              @foreach($bairros as $bairro)
-                <option value="{{ $bairro->codigo_bairro }}">{{ $bairro->nome }}</option>
-              @endforeach
-            </select>
-          </div>  
-      
-          <div class="col-4">
-            <label for="cep" class="form-label">CEP</label>
-            <input type="text" class="form-control" id="cep" name="enderecos[2][cep]">
-          </div>
-      
-          <div class="col-2">
-            <label for="uf" class="form-label">UF</label>
-            <select id="uf" class="form-select" name="enderecos[2][uf]">
-              <option selected disabled>Escolha...</option>
-              @foreach ($ufs as $uf)
-                <option value="{{ $uf->codigo_uf }}">{{ $uf->sigla }}</option>
-              @endforeach
-            </select>
-          </div>
-      
-          <div class="col-6">
-            <label for="municipio" class="form-label">Município</label>
-            <select id="municipio" class="form-select" name="enderecos[2][municipio]">
-              <option selected disabled>Escolha...</option>
-              @foreach ($municipios as $municipio)
-                <option value="{{ $municipio->codigo_municipio }}">{{ $municipio->nome }}</option>
-              @endforeach
-            </select>
-          </div>
-      
-          <div class="col-12">
-            <label for="complemento" class="form-label">Complemento</label>
-            <input type="text" class="form-control" id="complemento" name="enderecos[2][complemento]">
-          </div>
-        </div>
-
-        <button type="button" class="btn btn-danger mt-2" id="remover-endereco">Remover endereço</button>
-      </div> --}}
     </div>
 
     <div class="col-12">

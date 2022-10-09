@@ -15,8 +15,8 @@ function cloneEndereco() {
   elementClone.querySelector('#numero').setAttribute('name', `enderecos[${contador}][numero]`);
   elementClone.querySelector('#bairro').setAttribute('name', `enderecos[${contador}][bairro]`);
   elementClone.querySelector('#cep').setAttribute('name', `enderecos[${contador}][cep]`);
-  elementClone.querySelector('#uf').setAttribute('name', `enderecos[${contador}][uf]`);
-  elementClone.querySelector('#municipio').setAttribute('name', `enderecos[${contador}][municipio]`);
+  // elementClone.querySelector('#uf').setAttribute('name', `enderecos[${contador}][uf]`);
+  // elementClone.querySelector('#municipio').setAttribute('name', `enderecos[${contador}][municipio]`);
   elementClone.querySelector('#complemento').setAttribute('name', `enderecos[${contador}][complemento]`);
   elementClone.querySelectorAll('input').forEach(input => input.value = '');
   elementClone.querySelector('#remover-endereco').classList.remove('d-none');

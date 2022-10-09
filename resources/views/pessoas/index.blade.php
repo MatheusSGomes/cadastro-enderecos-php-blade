@@ -14,28 +14,22 @@
   @endif
 
   <ul class="list-group mb-4">
-    <li class="list-group-item d-flex justify-content-between align-items-center">
-      Pessoa 1
-      <div>
-        <button type="button" class="btn btn-primary">Editar</button>
-        <button type="button" class="btn btn-danger">Apagar</button>
-      </div>
-    </li>
-
-    <li class="list-group-item d-flex justify-content-between align-items-center">
-      Pessoa 2
-      <div>
-        <button type="button" class="btn btn-primary">Editar</button>
-        <button type="button" class="btn btn-danger">Apagar</button>
-      </div>
-    </li>
-
-    <li class="list-group-item d-flex justify-content-between align-items-center">
-      Pessoa 3
-      <div>
-        <button type="button" class="btn btn-primary">Editar</button>
-        <button type="button" class="btn btn-danger">Apagar</button>
-      </div>
-    </li>
+    @foreach($pessoas as $pessoa)
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        {{ $pessoa->nome }}
+        <div>
+          <a href="{{ route('pessoas.edit', $pessoa->codigo_pessoa) }}" class="btn btn-primary">Editar</a>
+          <form 
+            action="{{ route('pessoas.destroy', $pessoa->codigo_pessoa) }}" 
+            method="post"
+            style="display: inline-block;"
+          >
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="btn btn-danger">Apagar</button>
+          </form>
+        </div>
+      </li>
+    @endforeach
   </ul>
 @endsection
