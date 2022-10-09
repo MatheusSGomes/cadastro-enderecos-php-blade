@@ -7,6 +7,8 @@ use App\Models\{
     UF,
     Bairro
 };
+use App\Models\Endereco;
+use App\Models\Pessoa;
 use Illuminate\Http\Request;
 
 class IndexController extends Controller
@@ -22,22 +24,29 @@ class IndexController extends Controller
 
     public function store(Request $request)
     {
-        // dd($_POST);
-        dd($request);
+        $pessoa = new Pessoa;
+        $pessoa->nome = $request->input('nome');
+        $pessoa->sobrenome = $request->input('sobrenome');
+        $pessoa->idade = $request->input('idade');
+        $pessoa->login = $request->input('login');
+        $pessoa->senha = $request->input('senha');
+        $pessoa->status = 1;
+        $pessoa->save();
 
-        // $request->input('nome');
-        // $request->input('sobrenome');
-        // $request->input('idade');
-        // $request->input('login');
-        // $request->input('senha');
+        foreach ($request->enderecos as $end) {            
+            $endereco = new Endereco;
+            $endereco->codigo_pessoa = $pessoa->codigo_pessoa;
+            $endereco->nome_rua = $end['rua'];
+            $endereco->numero = $end['numero'];
+            $endereco->codigo_bairro = $end['bairro'];
+            $endereco->cep = $end['cep'];
+            $endereco->complemento = $end['complemento'];
+            // $endereco->uf = $end['uf'];
+            // $endereco->municipio = $end['municipio'];
+            $endereco->save();
+        }
         
-        // $request->input('rua');
-        // $request->input('numero');
-        // $request->input('bairro');
-        // $request->input('cep');
-        // $request->input('uf');
-        // $request->input('municipio');
-        // $request->input('complemento');
-        
+        return redirect('pessoas')
+            ->with('message', 'Pessoa salva com sucesso');
     }
 }
