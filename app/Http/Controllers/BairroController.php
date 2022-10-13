@@ -44,9 +44,17 @@ class BairroController extends Controller
     public function update(Request $request, $id)
     {
         $bairro = Bairro::find($id);
-        $bairro->nome = $request->input('nome');
-        $bairro->codigo_municipio = $request->input('municipio');
+
+        if ($request->nome) {
+            $bairro->nome = $request->input('nome');
+        }
+
+        if ($request->municipio) {
+            $bairro->codigo_municipio = $request->input('municipio');
+        }
+
         $bairro->save();
+
         return redirect('bairros')
             ->with('message', 'Bairro editado com sucesso');
     }

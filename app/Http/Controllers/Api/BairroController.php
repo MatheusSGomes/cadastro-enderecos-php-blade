@@ -135,7 +135,18 @@ class BairroController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $bairro = Bairro::where('codigo_bairro', $id)->update($request->all());
+            $bairro = Bairro::find($id);
+
+            if ($request->nome) {
+                $bairro->nome = $request->input('nome');
+            }
+
+            if ($request->municipio) {
+                $bairro->codigo_municipio = $request->input('municipio');
+            }
+
+            $bairro->save();
+            
             if($bairro === 0)
                 return response()->json([
                     "mensagem" => "Não foi possível alterar, pois não existe um registro de Bairro com o mesmo nome para o Município informado.",
