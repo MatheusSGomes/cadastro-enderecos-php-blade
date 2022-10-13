@@ -145,14 +145,80 @@ class PessoaController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $pessoa = Pessoa::where('codigo_pessoa', $id)->update($request->all());
-            if($pessoa === 0)
-                return response()->json([
-                    "mensagem" => "Não foi possível alterar, pois não existe um registro de Bairro no endereço da Pessoa informada.",
-                    "status" => 400
-                ], 400);
+            if ($request->codigo_pessoa) {
+                $pessoa = Pessoa::find($id);
+
+                if ($request->nome) {
+                    $pessoa->nome = $request->nome;
+                }
+
+                if ($request->sobrenome) {
+                    $pessoa->sobrenome = $request->sobrenome;
+                }
+
+                if ($request->idade) {
+                    $pessoa->idade = $request->idade;
+                }
+
+                if ($request->login) {
+                    $pessoa->login = $request->login;
+                }
+
+                if ($request->senha) {
+                    $pessoa->senha = $request->senha;
+                }
+
+                $pessoa->save();
+
+                if($pessoa === 0) {
+                    return response()->json([
+                        "mensagem" => "Não foi possível alterar, pois não existe um registro de Bairro no endereço da Pessoa informada.",
+                        "status" => 400
+                    ], 400);
+                }
+            }
+
+            if ($request->codigo_endereco) {
+                $endereco = Endereco::find($request->codigo_endereco);
+
+                if ($request->cep) {
+                    $endereco->cep = $request->cep;
+                }
+    
+                if ($request->codigo_bairro) {
+                    $endereco->codigo_bairro = $request->codigo_bairro;
+                }
+    
+                if ($request->complemento) {
+                    $endereco->complemento = $request->complemento;
+                }
+    
+                if ($request->nome_rua) {
+                    $endereco->nome_rua = $request->nome_rua;
+                }
+    
+                if ($request->numero) {
+                    $endereco->numero = $request->numero;
+                }
+                $endereco->save();
+            }
+
+            // if ($request->enderecos) {
+                // foreach ($request->enderecos as $endereco) {
+                //     Endereco::create([
+                //         'codigo_pessoa' => $pessoa->codigo_pessoa, 
+                //         'codigo_bairro' => $endereco['codigoBairro'],
+                //         'nome_rua' => $endereco['nomeRua'],
+                //         'numero' => $endereco['numero'],
+                //         'complemento' => $endereco['complemento'],
+                //         'cep'  => $endereco['cep']
+                //     ]);
+                // }
+            // }
+
             return response()->json(Pessoa::all(), 200);
         } catch (\Exception $e) {
+            dd($e);
             return response()->json([
                 "mensagem" => "Não foi possível alterar a Pessoa.",
                 "status" => 503
