@@ -142,13 +142,29 @@ class MunicipioController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $municipio = Municipio::where('codigo_municipio', $id)->update($request->all());
+            // $municipio = Municipio::where('codigo_municipio', $id)->update($request->all());
+
+            $municipio = Municipio::find($id);
 
             if($municipio === 0)
                 return response()->json([
                     "mensagem" => "Não foi possível alterar, pois não existe um registro de Município com o mesmo nome para a UF informada.",
                     "status" => 400
                 ], 400);
+
+            if($request->codigo_uf) {
+                $municipio->codigo_uf = $request->codigo_uf;
+            }
+
+            if($request->nome) {
+                $municipio->nome = $request->nome;
+            }
+
+            if($request->status) {
+                $municipio->status = $request->status;
+            }
+
+            $municipio->save();
 
             return response()->json(Municipio::all(), 200);
         } catch (\Exception $e) {

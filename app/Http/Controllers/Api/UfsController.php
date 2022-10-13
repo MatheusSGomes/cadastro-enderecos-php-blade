@@ -77,7 +77,11 @@ class UfsController extends Controller
     public function store(UfRequest $request)
     {
         try {
-            $ufs = UF::create($request->all());
+            $ufs = UF::create([
+                'nome' => $request->nome,
+                'sigla' => $request->sigla,
+                'status' => $request->status
+            ]);
             return response()->json(["mensagem" => "UF cadastrada com sucesso."], 200);
         } catch (Exception $e) {
             return response()->json([
@@ -149,8 +153,23 @@ class UfsController extends Controller
     public function update(Request $request, $id)
     {
         try{
-            $uf = UF::where('codigo_uf', $id)->update($request->all());
-            if($uf === 0)
+            $ufUpdate = Uf::find($id);
+            
+            if($request->nome) {
+                $ufUpdate->nome = $request->nome;
+            } 
+
+            if($request->sigla) {
+                $ufUpdate->sigla = $request->sigla;
+            }
+
+            if($request->status) {
+                $ufUpdate->status = $request->status;
+            }
+            
+            $ufUpdate->save();
+
+            if($ufUpdate === 0)
                 return response()->json([
                     "mensagem" => "Não foi possível alterar, pois não existe um registro com a UF cadastrada.",
                     "status" => 400
