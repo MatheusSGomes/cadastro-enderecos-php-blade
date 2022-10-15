@@ -91,6 +91,7 @@ class PessoaController extends Controller
             }
             return response()->json(["mensagem" => "Pessoa cadastrada com sucesso."], 200);
         } catch (Exception $e) {
+            dd($e);
             return response()->json([
                 "mensagem" => "Não foi possível cadastrar a pessoa.",
                 "status" => 503
@@ -145,77 +146,45 @@ class PessoaController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            if ($request->codigo_pessoa) {
-                $pessoa = Pessoa::find($id);
-
-                if ($request->nome) {
-                    $pessoa->nome = $request->nome;
-                }
-
-                if ($request->sobrenome) {
-                    $pessoa->sobrenome = $request->sobrenome;
-                }
-
-                if ($request->idade) {
-                    $pessoa->idade = $request->idade;
-                }
-
-                if ($request->login) {
-                    $pessoa->login = $request->login;
-                }
-
-                if ($request->senha) {
-                    $pessoa->senha = $request->senha;
-                }
-
-                $pessoa->save();
-
-                if($pessoa === 0) {
-                    return response()->json([
-                        "mensagem" => "Não foi possível alterar, pois não existe um registro de Bairro no endereço da Pessoa informada.",
-                        "status" => 400
-                    ], 400);
+            $pessoa = Pessoa::find($id);
+            
+            if ($request->enderecos) {
+                if ($request->enderecos[0]['codigo_endereco'] == null) {
+                    // Novo Endereço
+                    foreach ($request->enderecos as $endereco) {
+                        Endereco::create([
+                            'codigo_pessoa' => $pessoa->codigo_pessoa, 
+                            'codigo_bairro' => $endereco['codigoBairro'],
+                            'nome_rua' => $endereco['nomeRua'],
+                            'numero' => $endereco['numero'],
+                            'complemento' => $endereco['complemento'],
+                            'cep'  => $endereco['cep']
+                        ]);
+                    }
+                } else {
+                    // Endereço Existente
+                    foreach ($request->enderecos as $endereco) {
+                        $end = Endereco::find($endereco['codigo_endereco']);
+                        $end->codigo_pessoa = $pessoa['codigo_pessoa'];
+                        $end->codigo_bairro = $endereco['codigoBairro'];
+                        $end->nome_rua = $endereco['nomeRua'];
+                        $end->numero = $endereco['numero'];
+                        $end->complemento = $endereco['complemento'];
+                        $end->cep = $endereco['cep'];
+                        $end->save();
+                    }
                 }
             }
 
-            if ($request->codigo_endereco) {
-                $endereco = Endereco::find($request->codigo_endereco);
+            $pessoa->save();
 
-                if ($request->cep) {
-                    $endereco->cep = $request->cep;
-                }
-    
-                if ($request->codigo_bairro) {
-                    $endereco->codigo_bairro = $request->codigo_bairro;
-                }
-    
-                if ($request->complemento) {
-                    $endereco->complemento = $request->complemento;
-                }
-    
-                if ($request->nome_rua) {
-                    $endereco->nome_rua = $request->nome_rua;
-                }
-    
-                if ($request->numero) {
-                    $endereco->numero = $request->numero;
-                }
-                $endereco->save();
+            if($pessoa === 0) {
+                return response()->json([
+                    "mensagem" => "Não foi possível alterar, pois não existe um registro de Bairro no endereço da Pessoa informada.",
+                    "status" => 400
+                ], 400);
             }
-
-            // if ($request->enderecos) {
-                // foreach ($request->enderecos as $endereco) {
-                //     Endereco::create([
-                //         'codigo_pessoa' => $pessoa->codigo_pessoa, 
-                //         'codigo_bairro' => $endereco['codigoBairro'],
-                //         'nome_rua' => $endereco['nomeRua'],
-                //         'numero' => $endereco['numero'],
-                //         'complemento' => $endereco['complemento'],
-                //         'cep'  => $endereco['cep']
-                //     ]);
-                // }
-            // }
-
+            
             return response()->json(Pessoa::all(), 200);
         } catch (\Exception $e) {
             dd($e);
