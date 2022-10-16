@@ -166,11 +166,27 @@ class PessoaController extends Controller
                     foreach ($request->enderecos as $endereco) {
                         $end = Endereco::find($endereco['codigo_endereco']);
                         $end->codigo_pessoa = $pessoa['codigo_pessoa'];
-                        $end->codigo_bairro = $endereco['codigoBairro'];
-                        $end->nome_rua = $endereco['nomeRua'];
-                        $end->numero = $endereco['numero'];
-                        $end->complemento = $endereco['complemento'];
-                        $end->cep = $endereco['cep'];
+
+                        if ($endereco['codigoBairro']) {
+                            $end->codigo_bairro = $endereco['codigoBairro'];
+                        }
+
+                        if ($endereco['nomeRua']) {
+                            $end->nome_rua = $endereco['nomeRua'];
+                        }
+
+                        if ($endereco['numero']) {
+                            $end->numero = $endereco['numero'];
+                        }
+
+                        if ($endereco['complemento']) {
+                            $end->complemento = $endereco['complemento'];
+                        }
+
+                        if ($endereco['cep']) {
+                            $end->cep = $endereco['cep'];
+                        }
+
                         $end->save();
                     }
                 }
@@ -187,7 +203,6 @@ class PessoaController extends Controller
             
             return response()->json(Pessoa::all(), 200);
         } catch (\Exception $e) {
-            dd($e);
             return response()->json([
                 "mensagem" => "Não foi possível alterar a Pessoa.",
                 "status" => 503
