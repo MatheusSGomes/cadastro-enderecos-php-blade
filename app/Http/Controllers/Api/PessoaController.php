@@ -147,6 +147,26 @@ class PessoaController extends Controller
     {
         try {
             $pessoa = Pessoa::find($id);
+
+            if ($request->nome) {
+                $pessoa->nome = $request->nome;
+            }
+
+            if ($request->sobrenome) {
+                $pessoa->sobrenome = $request->sobrenome;
+            }
+
+            if ($request->idade) {
+                $pessoa->idade = $request->idade;
+            }
+
+            if ($request->login) {
+                $pessoa->login = $request->login;
+            }
+
+            if ($request->senha) {
+                $pessoa->senha = $request->senha;
+            }
             
             if ($request->enderecos) {
                 if ($request->enderecos[0]['codigo_endereco'] == null) {
@@ -192,14 +212,14 @@ class PessoaController extends Controller
                 }
             }
 
-            $pessoa->save();
-
             if($pessoa === 0) {
                 return response()->json([
                     "mensagem" => "Não foi possível alterar, pois não existe um registro de Bairro no endereço da Pessoa informada.",
                     "status" => 400
                 ], 400);
             }
+
+            $pessoa->save();
             
             return response()->json(Pessoa::all(), 200);
         } catch (\Exception $e) {
