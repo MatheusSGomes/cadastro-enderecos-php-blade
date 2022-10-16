@@ -217,11 +217,20 @@ class PessoaController extends Controller
      *      ),
      * )
      */
-    public function destroy($id)
+    public function destroy($id, Request $request)
     {
         try {
-            $pessoa = Pessoa::findOrFail($id);
-            $pessoa->delete();
+            if ($request->codigo_endereco) {
+                // Se tem código endereço é para apagar apenas o endereço
+                $endereco = Endereco::find($request->codigo_endereco);
+                $endereco->delete();
+                return response()->json(['message' => 'Endereço apagado com sucesso'], 200);
+            } else {
+                // Se não tem código endereço apaga a Pessoa
+                $pessoa = Pessoa::findOrFail($id);
+                $pessoa->delete();
+                return response()->json(['message' => 'Pessoa Apagada com sucesso.'], 200);
+            }
         } catch(Exception $e) {
             return response()->json(['message' => 'Pessoa inexistente.'], 404);
         }
